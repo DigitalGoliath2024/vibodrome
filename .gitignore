@@ -1,2 +1,7 @@
 dist/
 site.tar.gz
+node_modules/
+netlify-public/
+.netlify/
+.env
+.env.*

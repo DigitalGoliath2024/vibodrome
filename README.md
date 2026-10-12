@@ -40,3 +40,9 @@ Sites publication and the GitHub source mirror are separate operations. A GitHub
 ## Ownership
 
 Site branding and studio artwork belong to their respective owners. Third-party games and artwork remain owned by their creators. No blanket open-source license is granted by this repository.
+
+## Netlify deployment
+
+The repository includes `netlify.toml`, a catch-all Netlify Function, and Netlify Blobs persistence. Netlify uses `npm run build:netlify`, `netlify-public`, and `netlify/functions` automatically from the configuration file. Deploy the `main` branch with an empty base directory.
+
+The Netlify deployment has its own submission store; records from the Sites preview do not automatically migrate. Set `VIBODROME_ADMIN_PASSWORD` as a Functions-scoped environment variable in Netlify, then redeploy. Open `/admin`; use `admin` as the username and the configured password. Without this secret moderation stays locked. Never commit the password. `SITE_URL` optionally sets the canonical public origin; otherwise pages use their request origin.
