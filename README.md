@@ -50,3 +50,7 @@ The Netlify deployment has its own submission store; records from the Sites prev
 ## Contact and legal pages
 
 `/privacy` and `/terms` describe the current directory and identify Flying Vee Studios as the operator. `/contact` saves messages to Netlify Blobs; moderators access `/admin/contact` with the configured admin password. The inbox supports read status, deletion, and opening a reply in the operator's email client. No outbound email or notification service is configured. Finalize the operator's legal identity and business contact details before launch as appropriate.
+
+## SEO
+
+See [docs/SEO.md](docs/SEO.md) for the implemented metadata/schema package, automated audit, rich-result eligibility, and live launch checks. Run `npm test` before publishing SEO changes.
