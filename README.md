@@ -46,3 +46,7 @@ Site branding and studio artwork belong to their respective owners. Third-party 
 The repository includes `netlify.toml`, a catch-all Netlify Function, and Netlify Blobs persistence. Netlify uses `npm run build:netlify`, `netlify-public`, and `netlify/functions` automatically from the configuration file. Deploy the `main` branch with an empty base directory.
 
 The Netlify deployment has its own submission store; records from the Sites preview do not automatically migrate. Set `VIBODROME_ADMIN_PASSWORD` as a Functions-scoped environment variable in Netlify, then redeploy. Open `/admin`; use `admin` as the username and the configured password. Without this secret moderation stays locked. Never commit the password. `SITE_URL` optionally sets the canonical public origin; otherwise pages use their request origin.
+
+## Contact and legal pages
+
+`/privacy` and `/terms` describe the current directory and identify Flying Vee Studios as the operator. `/contact` saves messages to Netlify Blobs; moderators access `/admin/contact` with the configured admin password. The inbox supports read status, deletion, and opening a reply in the operator's email client. No outbound email or notification service is configured. Finalize the operator's legal identity and business contact details before launch as appropriate.

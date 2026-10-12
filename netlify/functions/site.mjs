@@ -15,6 +15,7 @@ export function bucketFor(store) {
       return value === null ? null : { json: async () => JSON.parse(value) };
     },
     async put(key, value) { await store.set(key, value); },
+    async delete(key) { await store.delete(key); },
   };
 }
 
@@ -32,7 +33,7 @@ function moderator(request, password) {
 
 export async function handle(request, store, password = process.env.VIBODROME_ADMIN_PASSWORD) {
   const url = new URL(request.url);
-  if (url.pathname === '/admin' || url.pathname === '/api/review') {
+  if (url.pathname.startsWith('/admin') || url.pathname === '/api/review' || url.pathname === '/api/contact-review') {
     if (!password) return new Response('Moderator access is not configured yet. Set VIBODROME_ADMIN_PASSWORD in Netlify environment variables and redeploy.', { status: 503 });
     if (!moderator(request, password)) return new Response('Moderator sign-in required.', { status: 401, headers: { 'WWW-Authenticate': 'Basic realm="Vibodrome review queue", charset="UTF-8"', 'Cache-Control': 'no-store' } });
   }
