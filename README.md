@@ -4,7 +4,7 @@ A curated directory of AI-built and AI-assisted browser games. Brand: **Vībodro
 
 ## Current features
 
-- 29 seeded games, including 9 Flying Vee Studios games and 20 editorial picks.
+- 30 seeded games, including 9 Flying Vee Studios games and 21 editorial picks.
 - 10 featured homepage slots, search, genre filters, game pages and developer profiles.
 - Game submissions with contact email, play URL, cover-image URL, and permission confirmation.
 - Persistent R2 submission queue and approval/rejection controls.

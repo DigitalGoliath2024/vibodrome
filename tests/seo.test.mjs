@@ -16,7 +16,7 @@ test('game, studio and editorial directory schema are appropriate',async()=>{
  let nodes=graph(await (await fetchPage('/games/melon-poppers')).text());assert.ok(nodes.some(x=>x['@type']==='VideoGame'&&x.image&&x.author));
  nodes=graph(await (await fetchPage('/developers/flying-vee-studios')).text());assert.ok(nodes.some(x=>x['@type']==='ProfilePage'));
  nodes=graph(await (await fetchPage('/developers/jason')).text());assert.ok(!nodes.some(x=>x['@type']==='ProfilePage'));
- nodes=graph(await (await fetchPage('/')).text());assert.equal(nodes.find(x=>x['@type']==='ItemList').numberOfItems,29);
+ nodes=graph(await (await fetchPage('/')).text());assert.equal(nodes.find(x=>x['@type']==='ItemList').numberOfItems,30);
  nodes=graph(await (await fetchPage('/guides/vibe-coded-games')).text());assert.ok(nodes.some(x=>x['@type']==='Article'&&x.headline&&x.image&&x.author&&x.datePublished));
 });
 test('redirects, crawl controls, private paths and image assets',async()=>{

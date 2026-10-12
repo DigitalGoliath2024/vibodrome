@@ -18,7 +18,7 @@ Updated October 12, 2026.
 
 ## Verification
 
-`npm test` checks 65 indexable sitemap routes, successful responses, unique titles/descriptions, a single matching canonical, one H1, parseable JSON-LD, applicable schema types, breadcrumb positions and URLs, social metadata, the 29-game count, redirects, robots, noindex behavior, and PNG assets. `npm run build:netlify` passed.
+`npm test` checks 67 indexable sitemap routes, successful responses, unique titles/descriptions, a single matching canonical, one H1, parseable JSON-LD, applicable schema types, breadcrumb positions and URLs, social metadata, the 30-game count, redirects, robots, noindex behavior, and PNG assets. `npm run build:netlify` passed.
 
 These are local automated checks. Google Rich Results Test, Schema Markup Validator, PageSpeed Insights and Search Console were not run on the live deployment in this session. Browser layout and measured Core Web Vitals remain unverified.
 
