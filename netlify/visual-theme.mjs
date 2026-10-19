@@ -1,3 +1,4 @@
+import { yellowRiot } from './yellow-riot.mjs';
 // Shared visual language for the Netlify directory.
 const paths={
  game:'<path d="M6 7h12l3 10a2 2 0 0 1-3 2l-4-3h-4l-4 3a2 2 0 0 1-3-2L6 7Z"/><path d="M7 10v4m-2-2h4m6-1h.01M18 14h.01"/>',
@@ -18,7 +19,7 @@ body{background:radial-gradient(ellipse at 5% 0%,#527c2523,transparent 42%),radi
 @media(prefers-reduced-motion:reduce){.btn:not(.outline):after{animation:none;display:none}.btn,.card,.visual-picks a{transition:none!important}.card:hover,.btn:not(.outline):hover{transform:none}}
 `;
 export function visualTheme(html, games, path) {
- html=html.replace('</head>',()=>'<style>'+theme+'</style></head>');
+ html=html.replace('</head>',()=>'<style>'+theme+yellowRiot+'</style></head>');
  const labels={'Discover games':'game','Puzzle':'puzzle','Action':'bolt','Developers':'people','All games':'game','Arcade':'game','Simulation':'globe','Strategy':'puzzle','Adventure':'spark','Horror':'spark','Racing':'bolt','Platformer':'game'};
  html=html.replace(/(<(?:a|button)\b[^>]*>)(Discover games|Puzzle|Action|Developers|All games|Arcade|Simulation|Strategy|Adventure|Horror|Racing|Platformer)(<\/(?:a|button)>)/g,(_,open,label,close)=>open+icon(labels[label])+label+close);
  html=html.replace(/(<h2(?:\s[^>]*)?>)(Featured games|Find your next favorite|The essentials|Before you jump in|More games to explore)/g,(_,tag,label)=>tag+icon(label==='Before you jump in'?'globe':label==='The essentials'?'game':'spark')+label);
@@ -27,5 +28,5 @@ export function visualTheme(html, games, path) {
   const picks=games.filter(g=>g.imageUrl?.startsWith('/media/')).slice(0,3);
   if(picks.length)html=html.replace('<div class="tiny">Browser games · Independent creators · Direct links</div>',()=>'<div class="tiny">Browser games · Independent creators · Direct links</div><div class="visual-picks">'+picks.map(g=>'<a href="/games/'+encodeURIComponent(g.id)+'" aria-label="Discover '+String(g.title).replace(/[&<>"']/g,'')+'"><img src="'+g.imageUrl+'" alt="" loading="lazy"></a>').join('')+'<span>Small studios. Big discoveries.</span></div>');
  }
- return html;
+ return html.replace(/style="([^"]*)"/g,(full,style)=>'style="'+style.replace(/#c6f776/gi,'#932444').replace(/#58624e/gi,'#932444')+'"');
 }
