@@ -1,3 +1,4 @@
+import { visualTheme } from './visual-theme.mjs';
 import { gamePage, gamePageCss } from './game-pages.mjs';
 import assets from './seo-assets.mjs';
 import { catalog } from '../worker/index.js';
@@ -47,5 +48,5 @@ export async function enrich(response,request,store){
  text=text.replace(/<title>[\s\S]*?<\/title>/,'<title>'+esc(title)+'</title>').replace(/<meta (?:name="(?:description|robots|twitter:[^"]*)"|property="og:[^"]*")[^>]*>/g,'').replace(/<link rel="canonical"[^>]*>/g,'').replace(/<link rel="icon"[^>]*>/g,'').replace(/<script type="application\/ld\+json">[\s\S]*?<\/script>/g,'');
  const robots=path==='/submit'?'noindex,follow':'index,follow,max-image-preview:large';
  const metadata='<meta name="description" content="'+esc(description)+'"><meta name="robots" content="'+robots+'"><link rel="canonical" href="'+esc(canonical)+'"><meta property="og:site_name" content="Vibodrome"><meta property="og:type" content="website"><meta property="og:locale" content="en_US"><meta property="og:url" content="'+esc(canonical)+'"><meta property="og:title" content="'+esc(title)+'"><meta property="og:description" content="'+esc(description)+'"><meta property="og:image" content="'+esc(img)+'"><meta property="og:image:alt" content="'+esc(game?game.title+' game artwork':'Vibodrome — vibe-coded games and independent creators')+'"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="'+esc(title)+'"><meta name="twitter:description" content="'+esc(description)+'"><meta name="twitter:image" content="'+esc(img)+'"><link rel="icon" type="image/png" sizes="96x96" href="/favicon.png"><link rel="apple-touch-icon" href="/logo.png"><script type="application/ld+json">'+JSON.stringify({'@context':'https://schema.org','@graph':graph}).replace(/</g,'\\u003c')+'</script>';
- text=text.replace('</head>',metadata+'</head>');if(path==='/submit')headers.set('X-Robots-Tag','noindex, follow');headers.set('Link','<'+canonical+'>; rel="canonical"');return new Response(text,{status:response.status,headers});
+ text=visualTheme(text,games,path);text=text.replace('</head>',metadata+'</head>');if(path==='/submit')headers.set('X-Robots-Tag','noindex, follow');headers.set('Link','<'+canonical+'>; rel="canonical"');return new Response(text,{status:response.status,headers});
 }
