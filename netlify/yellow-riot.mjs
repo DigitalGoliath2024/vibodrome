@@ -8,4 +8,6 @@ header .brand{color:#32153d;-webkit-text-stroke:1px #32153d;paint-order:stroke f
 /* Full-page Yellow Riot stripes, dissolving toward the top-right. */
 body{position:relative;isolation:isolate;background:#ffcb13}body:before{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;background:repeating-linear-gradient(125deg,transparent 0 65px,#f8a91f 65px 100px);mask-image:linear-gradient(to top right,#000 15%,#000b 48%,transparent 95%);-webkit-mask-image:linear-gradient(to top right,#000 15%,#000b 48%,transparent 95%)}header{background:transparent}.hero:before{display:none}header .brand span,footer .brand span,.brand span{text-shadow:none!important;-webkit-text-stroke:0!important;filter:none!important}
 header{background:#ffdc53;border-bottom:1px solid #32153d26;box-shadow:0 3px 0 #9324440d}
+.hero:after{right:0;top:10px;color:#b74c19;opacity:.18;text-shadow:none;filter:none}@media(max-width:720px){.hero:after{right:0;top:10px;opacity:.14}}
+.hero:after{display:none}body:after{content:'✳';position:absolute;right:1%;top:94px;font-size:clamp(320px,48vw,680px);font-weight:900;line-height:1;color:#b74c19;opacity:.16;z-index:-1;pointer-events:none;transform:rotate(-12deg);text-shadow:none}@media(max-width:720px){body:after{top:88px;right:0;font-size:320px;opacity:.13}}
 `;
