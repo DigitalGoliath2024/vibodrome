@@ -7,4 +7,5 @@ header .brand{color:#32153d;-webkit-text-stroke:1px #32153d;paint-order:stroke f
 
 /* Full-page Yellow Riot stripes, dissolving toward the top-right. */
 body{position:relative;isolation:isolate;background:#ffcb13}body:before{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;background:repeating-linear-gradient(125deg,transparent 0 65px,#f8a91f 65px 100px);mask-image:linear-gradient(to top right,#000 15%,#000b 48%,transparent 95%);-webkit-mask-image:linear-gradient(to top right,#000 15%,#000b 48%,transparent 95%)}header{background:transparent}.hero:before{display:none}header .brand span,footer .brand span,.brand span{text-shadow:none!important;-webkit-text-stroke:0!important;filter:none!important}
+header{background:#ffdc53;border-bottom:1px solid #32153d26;box-shadow:0 3px 0 #9324440d}
 `;
