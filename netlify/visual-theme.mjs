@@ -20,7 +20,7 @@ body{background:radial-gradient(ellipse at 5% 0%,#527c2523,transparent 42%),radi
 @media(prefers-reduced-motion:reduce){.btn:not(.outline):after{animation:none;display:none}.btn,.card,.visual-picks a{transition:none!important}.card:hover,.btn:not(.outline):hover{transform:none}}
 `;
 export function visualTheme(html, games, path) {
- if(path==='/contact')html=html.replace(/<label style="display:flex;align-items:flex-start;gap:12px">(<input name="consent"[^>]*>)([\s\S]*?)<\/label>/,(_,input,text)=>'<label class="contact-consent">'+input+'<span>'+text.trim()+'</span></label>');
+ html=html.replace(/<label style="display:flex;align-items:flex-start;gap:12px">(<input(?=[^>]*name="consent")[^>]*>)([\s\S]*?)<\/label>/,(_,input,text)=>'<label class="contact-consent">'+input+'<span>'+text.trim()+'</span></label>');
  html=html.replace('</head>',()=>'<style>'+theme+yellowRiot+'</style></head>');
  const labels={'Discover games':'game','Puzzle':'puzzle','Action':'bolt','Developers':'people','All games':'game','Arcade':'game','Simulation':'globe','Strategy':'puzzle','Adventure':'spark','Horror':'spark','Racing':'bolt','Platformer':'game'};
  html=html.replace(/(<(?:a|button)\b[^>]*>)(Discover games|Puzzle|Action|Developers|All games|Arcade|Simulation|Strategy|Adventure|Horror|Racing|Platformer)(<\/(?:a|button)>)/g,(_,open,label,close)=>open+icon(labels[label])+label+close);
