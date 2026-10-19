@@ -11,4 +11,5 @@ header{background:#ffdc53;border-bottom:1px solid #32153d26;box-shadow:0 3px 0 #
 .hero:after{right:0;top:10px;color:#b74c19;opacity:.18;text-shadow:none;filter:none}@media(max-width:720px){.hero:after{right:0;top:10px;opacity:.14}}
 .hero:after{display:none}body:after{content:'✳';position:absolute;right:1%;top:94px;font-size:clamp(320px,48vw,680px);font-weight:900;line-height:1;color:#b74c19;opacity:.16;z-index:-1;pointer-events:none;transform:rotate(-12deg);text-shadow:none}@media(max-width:720px){body:after{top:88px;right:0;font-size:320px;opacity:.13}}
 body{overflow-x:clip}body:after{right:-130px;top:18px}@media(max-width:720px){body:after{right:-90px;top:24px}}
+nav[aria-label="Breadcrumb"]{color:#54223d!important;font-size:13px!important}nav[aria-label="Breadcrumb"] a{color:#54223d;text-decoration:underline;text-underline-offset:3px}nav[aria-label="Breadcrumb"] a:hover{color:#32153d}nav[aria-label="Breadcrumb"] [aria-current="page"]{color:#32153d;font-weight:700}nav[aria-label="Breadcrumb"] [aria-hidden="true"]{color:#70402c}
 `;

@@ -1,3 +1,4 @@
+import { heroSlider } from './hero-slider.mjs';
 import { yellowRiot } from './yellow-riot.mjs';
 // Shared visual language for the Netlify directory.
 const paths={
@@ -25,6 +26,7 @@ export function visualTheme(html, games, path) {
  html=html.replace(/(<h2(?:\s[^>]*)?>)(Featured games|Find your next favorite|The essentials|Before you jump in|More games to explore)/g,(_,tag,label)=>tag+icon(label==='Before you jump in'?'globe':label==='The essentials'?'game':'spark')+label);
  html=html.replace('>PLAY GAME <span','>'+icon('play')+' PLAY GAME <span');
  if(path==='/'){
+  html=heroSlider(html,games);
   const picks=games.filter(g=>g.imageUrl?.startsWith('/media/')).slice(0,3);
   if(picks.length)html=html.replace('<div class="tiny">Browser games · Independent creators · Direct links</div>',()=>'<div class="tiny">Browser games · Independent creators · Direct links</div><div class="visual-picks">'+picks.map(g=>'<a href="/games/'+encodeURIComponent(g.id)+'" aria-label="Discover '+String(g.title).replace(/[&<>"']/g,'')+'"><img src="'+g.imageUrl+'" alt="" loading="lazy"></a>').join('')+'<span>Small studios. Big discoveries.</span></div>');
  }
