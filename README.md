@@ -5,7 +5,7 @@ A curated directory of AI-built and AI-assisted browser games. Brand: **Vībodro
 ## Current features
 
 - 40 catalog games, including 9 Flying Vee Studios games and 31 editorial picks.
-- 10 featured homepage slots, search, genre filters, game pages and developer profiles.
+- 10 featured homepage slots, search, 14 genre filters, game pages and developer profiles. Games can appear in multiple categories; editorial genre mappings live in `netlify/categories.mjs`.
 - Game submissions with contact email, play URL, cover-image URL, and permission confirmation.
 - Persistent R2 submission queue and approval/rejection controls.
 - Server-rendered HTML, unique metadata, canonical URLs, structured data, robots.txt and sitemap.xml.

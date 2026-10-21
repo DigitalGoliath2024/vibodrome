@@ -13,4 +13,5 @@ header{background:#ffdc53;border-bottom:1px solid #32153d26;box-shadow:0 3px 0 #
 body{overflow-x:clip}body:after{right:-130px;top:18px}@media(max-width:720px){body:after{right:-90px;top:24px}}
 nav[aria-label="Breadcrumb"]{color:#54223d!important;font-size:13px!important}nav[aria-label="Breadcrumb"] a{color:#54223d;text-decoration:underline;text-underline-offset:3px}nav[aria-label="Breadcrumb"] a:hover{color:#32153d}nav[aria-label="Breadcrumb"] [aria-current="page"]{color:#32153d;font-weight:700}nav[aria-label="Breadcrumb"] [aria-hidden="true"]{color:#70402c}
 .contact-consent{display:flex;align-items:flex-start;gap:12px;line-height:1.6;color:#32153d}.contact-consent input[type="checkbox"]{width:18px!important;height:18px;flex:0 0 18px;margin:2px 0 0;accent-color:#932444;padding:0}.contact-consent span{flex:1;min-width:0}.contact-consent a{display:inline;color:#54223d;text-decoration:underline;text-underline-offset:3px}
+.category-count{font-size:11px;opacity:.8;margin-left:5px}.game-facts dd a{display:inline-block}.filters{row-gap:10px}
 `;

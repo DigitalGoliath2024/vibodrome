@@ -1,3 +1,4 @@
+import { categoryForPath, extraCategories } from '../categories.mjs';
 import { getStore } from '@netlify/blobs';
 import { timingSafeEqual } from 'node:crypto';
 import worker from '../../worker/index.js';
@@ -46,8 +47,24 @@ export async function handle(request, store, password = process.env.VIBODROME_AD
   headers.delete('oai-authenticated-user-id');
   headers.delete('oai-authenticated-user-email');
   if (moderator(request, password)) headers.set('oai-authenticated-user-id', 'netlify-moderator');
-  const forwarded = new Request(request, { headers });
-  const response = await worker.fetch(forwarded, { BUCKET: bucketFor(store) });
+  let forwarded = new Request(request, { headers });
+  // Reuse the Worker genre shell; enrichment renders the requested category.
+  if (['GET','HEAD'].includes(request.method) && categoryForPath(url.pathname)) {
+    const shellUrl=new URL(url);shellUrl.pathname='/genres/action';
+    forwarded=new Request(shellUrl,forwarded);
+  }
+  const bucket=bucketFor(store);
+  if(request.method==='POST' && url.pathname==='/api/submit') {
+    const payload=await forwarded.clone().json().catch(()=>null);
+    if(payload && Object.hasOwn(extraCategories,payload.category)) {
+      const put=bucket.put.bind(bucket);
+      bucket.put=async(key,value)=>{
+        if(key.startsWith('submissions/')){const entry=JSON.parse(value);entry.category=payload.category;value=JSON.stringify(entry);}
+        return put(key,value);
+      };
+    }
+  }
+  const response = await worker.fetch(forwarded, { BUCKET: bucket });
   const enhanced = await enrich(response, request, store);
   const outputHeaders = new Headers(enhanced.headers);
   outputHeaders.set('Cache-Control', url.pathname.startsWith('/media/') ? 'public,max-age=86400' : 'no-store');

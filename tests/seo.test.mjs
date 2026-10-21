@@ -44,3 +44,36 @@ test('new editorial games have discoverable pages, artwork, creator credits and 
  }
  const home=await(await fetchPage('/')).text();assert.ok(home.includes('40 games to explore.'));assert.ok(!home.includes('30 games to explore.'));
 });
+test('categories share multi-genre membership across pages, filters and schema',async()=>{
+ const {categories,categorySlug,genresFor}=await import('../netlify/categories.mjs');
+ const {catalog}=await import('../worker/index.js');
+ const home=await(await fetchPage('/')).text();
+ const directory=await(await fetchPage('/games')).text();
+ const sitemap=await(await fetchPage('/sitemap.xml')).text();
+ for(const category of categories){
+  const path='/genres/'+categorySlug(category),expected=catalog.filter(g=>genresFor(g).includes(category));
+  assert.ok(expected.length,category+' should not be empty');
+  const response=await fetchPage(path);assert.equal(response.status,200,path);
+  const html=await response.text();
+  const ids=[...html.matchAll(/<article class="card"[^>]*>\s*<a href="\/games\/([^"/]+)"/g)].map(m=>m[1]);
+  assert.deepEqual(ids,expected.map(g=>g.id),category);
+  assert.equal(graph(html).find(n=>n['@type']==='ItemList').numberOfItems,expected.length);
+  assert.ok(directory.includes('href="'+path+'"'));assert.ok(sitemap.includes('<loc>https://vibodrome.fun'+path+'</loc>'));
+  assert.ok(home.includes('data-filter="'+category.replaceAll('&','&amp;')+'"'));
+ }
+ assert.ok(home.includes("JSON.parse(c.dataset.genres||'[]').includes(selected)"));
+ const finger=await(await fetchPage('/games/finger-haunt')).text();
+ assert.deepEqual(graph(finger).find(n=>n['@type']==='VideoGame').genre,['Action','Shooters','Horror','Survival']);
+ assert.ok(finger.includes('href="/genres/shooters"'));assert.ok(finger.includes('href="/genres/survival"'));
+ const horror=await(await fetchPage('/genres/horror')).text();assert.ok(!horror.includes('href="/games/camo-chameleon"'));
+ assert.equal((await fetchPage('/genres/not-a-category')).status,404);
+});
+test('submission form offers new categories and stores selected primary category',async()=>{
+ const saved=[];
+ const capturing={...store,set:async(key,value)=>saved.push(JSON.parse(value))};
+ const page=await(await fetchPage('/submit')).text();assert.ok(page.includes('<option>Cozy &amp; Relaxing</option>'));
+ for(const category of ['Shooters','Sports','Physics','Cozy & Relaxing','Survival']){
+  const response=await handle(new Request('https://vibodrome.fun/api/submit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({title:'Test entry',creator:'Test creator',email:'test@example.com',url:'https://example.com/game',description:'A test submission.',category,consent:'on'})}),capturing);
+  assert.equal(response.status,200);assert.equal(saved.at(-1).category,category);
+ }
+});

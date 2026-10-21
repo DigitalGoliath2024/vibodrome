@@ -22,7 +22,7 @@ body{background:radial-gradient(ellipse at 5% 0%,#527c2523,transparent 42%),radi
 export function visualTheme(html, games, path) {
  html=html.replace(/<label style="display:flex;align-items:flex-start;gap:12px">(<input(?=[^>]*name="consent")[^>]*>)([\s\S]*?)<\/label>/,(_,input,text)=>'<label class="contact-consent">'+input+'<span>'+text.trim()+'</span></label>');
  html=html.replace('</head>',()=>'<style>'+theme+yellowRiot+'</style></head>');
- const labels={'Discover games':'game','Puzzle':'puzzle','Action':'bolt','Developers':'people','All games':'game','Arcade':'game','Simulation':'globe','Strategy':'puzzle','Adventure':'spark','Horror':'spark','Racing':'bolt','Platformer':'game'};
+ const labels={'Discover games':'game','Puzzle':'puzzle','Action':'bolt','Developers':'people','All games':'game','Arcade':'game','Simulation':'globe','Strategy':'puzzle','Adventure':'spark','Horror':'spark','Racing':'bolt','Platformer':'game','Shooters':'bolt','Sports':'game','Physics':'bolt','Cozy & Relaxing':'spark','Survival':'game'};
  html=html.replace(/(<(?:a|button)\b[^>]*>)(Discover games|Puzzle|Action|Developers|All games|Arcade|Simulation|Strategy|Adventure|Horror|Racing|Platformer)(<\/(?:a|button)>)/g,(_,open,label,close)=>open+icon(labels[label])+label+close);
  html=html.replace(/(<h2(?:\s[^>]*)?>)(Featured games|Find your next favorite|The essentials|Before you jump in|More games to explore)/g,(_,tag,label)=>tag+icon(label==='Before you jump in'?'globe':label==='The essentials'?'game':'spark')+label);
  html=html.replace('>PLAY GAME <span','>'+icon('play')+' PLAY GAME <span');
