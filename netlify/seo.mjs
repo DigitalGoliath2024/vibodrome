@@ -1,3 +1,4 @@
+import './catalog-additions.mjs';
 import { visualTheme } from './visual-theme.mjs';
 import { gamePage, gamePageCss } from './game-pages.mjs';
 import assets from './seo-assets.mjs';
@@ -24,6 +25,7 @@ export async function enrich(response,request,store){
  if(path==='/robots.txt')return new Response('User-agent: *\nAllow: /\nDisallow: /admin\nDisallow: /api/\n\nSitemap: '+origin+'/sitemap.xml\n',{headers:{'Content-Type':'text/plain;charset=utf-8'}});
  if(!(headers.get('content-type')||'').includes('text/html')){if(path==='/sitemap.xml'){const xml=(await response.text()).replaceAll(u.origin,origin).replace(/<url><loc>[^<]*\/submit<\/loc><\/url>/g,'');return new Response(xml.replace('</urlset>','<url><loc>'+origin+'/games</loc></url><url><loc>'+origin+'/guides/vibe-coded-games</loc></url></urlset>'),{headers:{'Content-Type':'application/xml;charset=utf-8'}})}return response;}
  let text=await response.text();let games=[...catalog];const {blobs}=await store.list({prefix:'submissions/'});for(const b of blobs){const val=await store.get(b.key,{type:'json'});if(val?.status==='approved')games.push(val)}
+ if(path==='/')text=text.replace('30 games to explore.',games.length+' games to explore.');
  const game=games.find(g=>path==='/games/'+g.id),genre=Object.keys(genres).find(g=>path==='/genres/'+g.toLowerCase()),creator=games.map(g=>g.creator).find(c=>path==='/developers/'+slug(c));
  let title=decode(text.match(/<title>(.*?)<\/title>/)?.[1]||'Vibodrome'),description=decode(text.match(/<meta name="description" content="([^"]*)"/)?.[1]||'Discover independent AI-built browser games on Vibodrome.');
  if(path==='/'){title='Vibodrome | Vibe-Coded & AI Browser Games';description='Discover vibe-coded and AI-assisted browser games from independent creators. Explore puzzle, action, strategy and simulation games, then play on the original sites.';}

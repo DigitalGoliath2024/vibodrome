@@ -16,7 +16,7 @@ test('game, studio and editorial directory schema are appropriate',async()=>{
  let nodes=graph(await (await fetchPage('/games/melon-poppers')).text());assert.ok(nodes.some(x=>x['@type']==='VideoGame'&&x.image&&x.author));
  nodes=graph(await (await fetchPage('/developers/flying-vee-studios')).text());assert.ok(nodes.some(x=>x['@type']==='ProfilePage'));
  nodes=graph(await (await fetchPage('/developers/jason')).text());assert.ok(!nodes.some(x=>x['@type']==='ProfilePage'));
- nodes=graph(await (await fetchPage('/')).text());assert.equal(nodes.find(x=>x['@type']==='ItemList').numberOfItems,30);
+ nodes=graph(await (await fetchPage('/')).text());assert.equal(nodes.find(x=>x['@type']==='ItemList').numberOfItems,40);
  nodes=graph(await (await fetchPage('/guides/vibe-coded-games')).text());assert.ok(nodes.some(x=>x['@type']==='Article'&&x.headline&&x.image&&x.author&&x.datePublished));
 });
 test('redirects, crawl controls, private paths and image assets',async()=>{
@@ -25,4 +25,22 @@ test('redirects, crawl controls, private paths and image assets',async()=>{
  assert.match((await fetchPage('/submit')).headers.get('x-robots-tag'),/noindex/);
  const missing=await fetchPage('/missing');assert.equal(missing.status,404);assert.match(missing.headers.get('x-robots-tag'),/noindex/);
  for(const path of ['/og/site.png','/logo.png','/favicon.png']){const r=await fetchPage(path);assert.equal(r.status,200);assert.equal(r.headers.get('content-type'),'image/png');assert.ok((await r.arrayBuffer()).byteLength>100)}
+});
+test('new editorial games have discoverable pages, artwork, creator credits and original play links',async()=>{
+ const { additions }=await import('../netlify/catalog-additions.mjs');
+ assert.equal(additions.length,10);
+ const directory=await(await fetchPage('/games')).text();
+ const sitemap=await(await fetchPage('/sitemap.xml')).text();
+ for(const game of additions){
+  const path='/games/'+game.id;
+  assert.ok(directory.includes('href="'+path+'"'),game.id+' missing from directory');
+  assert.ok(sitemap.includes('https://vibodrome.fun'+path),game.id+' missing from sitemap');
+  const response=await fetchPage(path);assert.equal(response.status,200);
+  const html=await response.text();
+  assert.ok(html.includes(game.imageUrl.replaceAll('&','&amp;')),game.id+' missing cover');
+  assert.ok(html.includes('href="'+game.url+'"'),game.id+' incorrect play destination');
+  const schema=graph(html).find(node=>node['@type']==='VideoGame');
+  assert.equal(schema.url,game.url);assert.ok(schema.image&&schema.author);
+ }
+ const home=await(await fetchPage('/')).text();assert.ok(home.includes('40 games to explore.'));assert.ok(!home.includes('30 games to explore.'));
 });

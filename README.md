@@ -4,7 +4,7 @@ A curated directory of AI-built and AI-assisted browser games. Brand: **Vībodro
 
 ## Current features
 
-- 30 seeded games, including 9 Flying Vee Studios games and 21 editorial picks.
+- 40 catalog games, including 9 Flying Vee Studios games and 31 editorial picks.
 - 10 featured homepage slots, search, genre filters, game pages and developer profiles.
 - Game submissions with contact email, play URL, cover-image URL, and permission confirmation.
 - Persistent R2 submission queue and approval/rejection controls.
@@ -12,7 +12,7 @@ A curated directory of AI-built and AI-assisted browser games. Brand: **Vībodro
 
 ## Source and build
 
-The application is a dependency-free Cloudflare Worker ES module in `worker/index.js`. Cover assets are embedded in the source. Edit the source, not `dist/`.
+The application is a dependency-free Cloudflare Worker ES module in `worker/index.js`. Original cover assets are embedded in the source. Netlify editorial additions live in `netlify/catalog-additions.mjs`, which registers entries in the shared catalog before requests are handled. Added cover images link to creator-provided artwork or official jam screenshots. Edit the source, not `dist/`.
 
 Requires Node.js and Bash:
 
