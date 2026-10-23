@@ -1,6 +1,6 @@
 # Vibodrome SEO implementation and launch checks
 
-Updated October 12, 2026.
+Updated October 23, 2026.
 
 ## Implemented
 
@@ -18,7 +18,7 @@ Updated October 12, 2026.
 
 ## Verification
 
-`npm test` checks 67 indexable sitemap routes, successful responses, unique titles/descriptions, a single matching canonical, one H1, parseable JSON-LD, applicable schema types, breadcrumb positions and URLs, social metadata, the 30-game count, redirects, robots, noindex behavior, and PNG assets. `npm run build:netlify` passed.
+`npm test` checks 90 indexable sitemap routes, successful responses, unique titles/descriptions, a single matching canonical, one H1, parseable JSON-LD, applicable schema types, breadcrumb positions and URLs, social metadata, the 40-game count, redirects, robots, noindex behavior, and PNG assets. `npm run build:netlify` passed.
 
 These are local automated checks. Google Rich Results Test, Schema Markup Validator, PageSpeed Insights and Search Console were not run on the live deployment in this session. Browser layout and measured Core Web Vitals remain unverified.
 
@@ -48,3 +48,13 @@ Official references:
 8. Build awareness through legitimate creator relationships and relevant directories. Technical setup alone cannot produce backlinks, traffic, authority, or ranking guarantees.
 
 Suggested search intents: vibe-coded games; AI browser games; AI-assisted indie games; genre + browser games; game title + play; creator name + games. The catalog currently includes AI-assisted projects as well as predominantly AI-coded projects; descriptions must preserve that distinction.
+
+## Main-page focus and contextual links
+
+- `/`: game discovery; targets vibe-coded games and AI-coded browser games in the title and visible copy.
+- `/games`: the complete browser-game directory and genre navigation.
+- `/genres/*`: genre-specific browser-game searches, with multi-genre membership and visible counts.
+- `/guides/vibe-coded-games`: informational searches about what vibe-coded and AI-assisted games are.
+- `/about`: operator, purpose, selection process and creator relationship, with contextual links to the homepage, directory, guide, categories, developer pages and contact/submission forms.
+
+Game-detail pages include a short contextual link back to the homepage and guide, alongside their existing category links. About links are ordinary server-rendered anchors with descriptive text. These changes clarify navigation and page relevance; no keyword-volume estimates or ranking guarantees are implied. Use Search Console query and page reports, with a consistent date range, to assess indexing, impressions and clicks after recrawling.

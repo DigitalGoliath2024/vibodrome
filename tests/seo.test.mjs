@@ -77,3 +77,18 @@ test('submission form offers new categories and stores selected primary category
   assert.equal(response.status,200);assert.equal(saved.at(-1).category,category);
  }
 });
+test('About copy links to live discovery pages and game pages link back to the main hubs',async()=>{
+ const about=await(await fetchPage('/about')).text();
+ const article=about.match(/<article class="page about-page">([\s\S]*?)<\/article>/)?.[1];assert.ok(article);
+ assert.match(article,/<a href="\/">Vibe Coded Games<\/a>/);
+ const targets=[...new Set([...article.matchAll(/<a [^>]*href="([^"]+)"/g)].map(m=>m[1]))];
+ for(const path of ['/','/games','/guides/vibe-coded-games','/genres/puzzle','/genres/shooters','/genres/strategy','/genres/simulation','/genres/cozy-relaxing','/developers','/developers/flying-vee-studios','/submit','/contact']){
+  assert.ok(targets.includes(path),path+' missing from About content');assert.equal((await fetchPage(path)).status,200,path);
+ }
+ const aboutNode=graph(about).find(n=>n['@type']==='AboutPage');assert.ok(aboutNode);assert.match(aboutNode.name,/About Vibodrome/);
+ for(const path of ['/games/tiny-skies','/games/vibesail','/games/full-send']){
+  const html=await(await fetchPage(path)).text();const section=html.match(/<p class="discovery-links">([\s\S]*?)<\/p>/)?.[1];assert.ok(section,path);
+  assert.match(section,/<a href="\/">vibe-coded games<\/a>/);assert.ok(section.includes('href="/guides/vibe-coded-games"'));
+ }
+ const home=await(await fetchPage('/')).text();assert.match(home,/<title>[^<]*Vibe-Coded Games[^<]*AI-Coded Browser Games[^<]*<\/title>/);
+});
